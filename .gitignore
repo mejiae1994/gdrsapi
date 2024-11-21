@@ -1,0 +1,9 @@
+.DS_Store
+.vscode
+dist/*
+.env
+*.json
+*.out.*
+*.out
+*.log
+Thumbs.db
