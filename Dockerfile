@@ -7,7 +7,7 @@ COPY go.sum ./
 RUN go mod download
 
 COPY . .
-RUN go build -o gdrsapi ./cmd/api .
+RUN go build -o gdrsapi ./cmd/api
 
 FROM alpine:latest
 WORKDIR /app
