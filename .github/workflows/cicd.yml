@@ -54,3 +54,32 @@ jobs:
       - name: Pull latest image
         run: |
           docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:master
+
+      - name: Create google credentials .env
+        run: |
+          cd /home/konedi/pg-docker
+          echo "GOOGLE_SA_CRED='${{ secrets.GOOGLE_SA_CRED }}'" > .env
+          echo "CLOUDFLARE_API_KEY"='${{ secrets.CLOUDFLARE_API_KEY }}' >> .env
+          echo "CLOUDFLARE_ACCOUNT_ID"='${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' >> .env
+          echo "GEMINI_API_KEY"='${{ secrets.GEMINI_API_KEY }}' >> .env
+
+      - name: Restart Docker Compose
+        run: |
+          cd /home/konedi/pg-docker
+          if ! docker compose up -d; then
+            echo "Failed to start containers"
+            exit 1
+          fi
+
+          echo "Waiting for containers to start"
+          # Verify deployment
+          sleep 10  # Give containers time to start
+          if ! docker compose ps | grep -q "Up"; then
+            echo "Containers failed to start properly"
+            docker compose logs
+            exit 1
+          fi
+          echo "Containers started successfully"
+
+          docker image prune -f  # Optional: Clean up old images
+          echo "Pruned images"
