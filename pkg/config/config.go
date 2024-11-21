@@ -57,7 +57,7 @@ func LoadConfig() error {
 	err := godotenv.Load(".env")
 	if err != nil {
 		// this is used for testing
-		err = godotenv.Load("../.env")
+		err = godotenv.Load("../../.env")
 		if err != nil {
 			return fmt.Errorf("Error loading .env file: %w", err)
 		}
