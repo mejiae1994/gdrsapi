@@ -1,0 +1,13 @@
+name: Test Remote SSH Commands
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-commands:
+    runs-on: self-hosted
+
+    steps:
+      - name: Run commands directly
+        run: |
+          ls /home/konedi/scripts    # Run commands directly
