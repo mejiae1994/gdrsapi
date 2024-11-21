@@ -358,7 +358,7 @@ func (app *App) mapRoutes() *http.ServeMux {
 
 func (app *App) serve() error {
 	svc := &http.Server{
-		Addr:    ":8081",
+		Addr:    ":8082",
 		Handler: app.logRequestMidleware(app.rateLimitMiddleware(app.mapRoutes())),
 	}
 

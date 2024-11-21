@@ -13,5 +13,5 @@ FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /build/gdrsapi .
 
-EXPOSE 8081
+EXPOSE 8082
 CMD ["./gdrsapi"]
