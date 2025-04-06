@@ -11,6 +11,10 @@ import (
 	"time"
 )
 
+const (
+	GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
+)
+
 type GeminiService struct {
 	httpClient *http.Client
 	cfg        *config.Config
@@ -35,7 +39,7 @@ func NewGeminiService(genCfg map[string]interface{}) *GeminiService {
 }
 
 func (g *GeminiService) CallGeminiLLMApi(propmt string) ([]byte, error) {
-	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + g.cfg.GeminiApiKey
+	url := GEMINI_API_URL + g.cfg.GeminiApiKey
 
 	type TextPart struct {
 		Text string `json:"text"`
